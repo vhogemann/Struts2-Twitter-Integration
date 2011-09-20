@@ -1,0 +1,6 @@
+stamp/target
+resources
+schemas
+*.svn
+*.project
+*.settings
