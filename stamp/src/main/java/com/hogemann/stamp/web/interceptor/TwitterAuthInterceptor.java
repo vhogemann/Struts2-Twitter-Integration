@@ -11,7 +11,7 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.hogemann.stamp.model.TwitterUser;
+import com.hogemann.stamp.model.TwitterAccount;
 import com.hogemann.stamp.services.TwitterService;
 import com.hogemann.stamp.util.Base32;
 import com.opensymphony.xwork2.ActionInvocation;
@@ -38,15 +38,15 @@ public class TwitterAuthInterceptor extends AbstractInterceptor{
 		Object obj = invocation.getAction();
 		Map<String, Object> session = invocation.getInvocationContext().getSession();
 
-		TwitterUser user = service.getFromSession(session);
+		TwitterAccount account = service.getFromSession(session);
 		String userId = getTwitterCookie(ServletActionContext.getRequest());
 			
-		if (user == null && StringUtils.isNotBlank(userId)) {
+		if (account == null && StringUtils.isNotBlank(userId)) {
 			try {
 				long id = Long.valueOf(userId);
-				user = service.loadUser(id);
-				if(user != null)
-					session.put(TwitterService.TWITTER_USER, user);
+				account = service.loadUser(id);
+				if(account != null)
+					session.put(TwitterService.TWITTER_USER, account);
 			} catch (NumberFormatException e) {
 				log.warn("Bogus value set as " + TwitterService.TWITTER_COOKIE + " value: " + userId);
 			}
@@ -54,7 +54,7 @@ public class TwitterAuthInterceptor extends AbstractInterceptor{
 
 		if (obj instanceof UserAware) {
 			UserAware action = (UserAware) obj;
-			action.setUser(user);
+			action.setUser(account.getUser());
 		}
 
 		return invocation.invoke();

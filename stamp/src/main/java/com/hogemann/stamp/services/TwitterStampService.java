@@ -9,12 +9,12 @@ import twitter4j.TwitterException;
 import twitter4j.User;
 
 import com.hogemann.stamp.model.Stamp;
-import com.hogemann.stamp.model.TwitterUser;
+import com.hogemann.stamp.model.TwitterAccount;
 
-public class TwitterStampService implements StampService<TwitterUser> {
+public class TwitterStampService implements StampService<TwitterAccount> {
 
-	public List<Stamp> search(String nick, TwitterUser user) {
-		Twitter twitter = user.getTwitter();
+	public List<Stamp> search(String nick, TwitterAccount account) {
+		Twitter twitter = account.getTwitter();
 		
 		try {
 			

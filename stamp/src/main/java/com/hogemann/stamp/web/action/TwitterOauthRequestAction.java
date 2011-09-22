@@ -6,7 +6,7 @@ import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import com.hogemann.stamp.model.TwitterUser;
+import com.hogemann.stamp.model.TwitterAccount;
 import com.hogemann.stamp.services.TwitterService;
 
 @Controller("twitterAuth")
@@ -23,7 +23,7 @@ public class TwitterOauthRequestAction implements SessionAware {
 
 	public String execute() {
 
-		TwitterUser user = service.startAuthentication();
+		TwitterAccount user = service.startAuthentication();
 		redirect = user.getAuthenticationURL();
 		session.put(TwitterService.TWITTER_USER, user);
 

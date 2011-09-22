@@ -13,8 +13,8 @@ import twitter4j.TwitterException;
 import twitter4j.auth.RequestToken;
 
 import com.hogemann.stamp.model.Stamp;
-import com.hogemann.stamp.model.TwitterUser;
-import com.hogemann.stamp.persistence.TwitterUserRepository;
+import com.hogemann.stamp.model.TwitterAccount;
+import com.hogemann.stamp.persistence.TwitterAccountRepository;
 import com.hogemann.stamp.util.TwitterFactory;
 
 @Service
@@ -23,7 +23,7 @@ public class TwitterServiceImpl implements TwitterService {
 	private static final Log log = LogFactory.getLog(TwitterService.class);
 	
 	@Autowired
-	private TwitterUserRepository repository;
+	private TwitterAccountRepository repository;
 	
 	@Autowired
 	private TwitterFactory factory;
@@ -31,12 +31,12 @@ public class TwitterServiceImpl implements TwitterService {
 	@Autowired
 	private String twitterCallbackUrl = "http://localhost:8080/stamp/twittercallback";
 	
-	public TwitterUser startAuthentication() {
+	public TwitterAccount startAuthentication() {
 		
 		try {
 			Twitter twitter = factory.getTwitter();
 			RequestToken requestToken = twitter.getOAuthRequestToken(twitterCallbackUrl);
-			TwitterUser user = new TwitterUser(twitter, requestToken);
+			TwitterAccount user = new TwitterAccount(twitter, requestToken);
 			return user;
 		} catch (TwitterException e) {
 			log.error(e);
@@ -45,7 +45,7 @@ public class TwitterServiceImpl implements TwitterService {
 		return null;
 	}
 
-	public Stamp getStampForUserId(long userId, TwitterUser user) {
+	public Stamp getStampForUserId(long userId, TwitterAccount user) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -55,21 +55,21 @@ public class TwitterServiceImpl implements TwitterService {
 		return null;
 	}
 
-	public TwitterUser getFromSession(Map<String, Object> session) {
+	public TwitterAccount getFromSession(Map<String, Object> session) {
 		Object obj = session.get(TWITTER_USER);
-		if(obj != null && obj instanceof TwitterUser)
-			return (TwitterUser)obj;
+		if(obj != null && obj instanceof TwitterAccount)
+			return (TwitterAccount)obj;
 		
 		return null;
 	}
 
-	public long save(TwitterUser user) {
+	public long save(TwitterAccount user) {
 		long id = repository.save(user);
 		return id;
 	}
 
-	public TwitterUser loadUser(long id) {
-		TwitterUser user = repository.get(id);
+	public TwitterAccount loadUser(long id) {
+		TwitterAccount user = repository.get(id);
 		if(user != null){
 			user.authenticate(factory);
 			return user;

@@ -34,6 +34,9 @@ public class User extends AbstractEntity {
 	@Column 
 	private String image;
 	
+	@OneToMany(fetch=FetchType.EAGER)
+	private List<Account> accounts;
+	
 	@OneToMany(fetch=FetchType.LAZY)
 	private List<Album> albuns;
 	
@@ -87,6 +90,14 @@ public class User extends AbstractEntity {
 
 	public void setInstances(List<Album> instances) {
 		this.instances = instances;
+	}
+
+	public List<Account> getAccounts() {
+		return accounts;
+	}
+
+	public void setAccounts(List<Account> accounts) {
+		this.accounts = accounts;
 	}
 
 }

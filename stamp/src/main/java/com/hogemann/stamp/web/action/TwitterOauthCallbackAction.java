@@ -12,8 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import twitter4j.TwitterException;
 
-import com.hogemann.stamp.model.TwitterUser;
-import com.hogemann.stamp.persistence.TwitterUserRepository;
+import com.hogemann.stamp.model.TwitterAccount;
+import com.hogemann.stamp.persistence.TwitterAccountRepository;
 import com.hogemann.stamp.services.TwitterService;
 import com.hogemann.stamp.util.Base32;
 import com.opensymphony.xwork2.ActionContext;
@@ -29,7 +29,7 @@ public class TwitterOauthCallbackAction implements ServletResponseAware {
 	private TwitterService service;
 	
 	@Autowired
-	private TwitterUserRepository userRepository;
+	private TwitterAccountRepository userRepository;
 
 	private HttpServletResponse response;
 	
@@ -37,12 +37,12 @@ public class TwitterOauthCallbackAction implements ServletResponseAware {
 		
 		Map<String,Object> session = ActionContext.getContext().getSession();
 		
-		TwitterUser user = service.getFromSession(session);
+		TwitterAccount user = service.getFromSession(session);
 		
 		if(user != null && !user.isAuthenticated()) try {
 			user.authenticate(oauth_verifier);
 			
-			TwitterUser recycled = recycle(user);
+			TwitterAccount recycled = recycle(user);
 			long id = 0;
 			if(recycled != null){
 				user = recycled;
@@ -70,8 +70,8 @@ public class TwitterOauthCallbackAction implements ServletResponseAware {
 	 * 
 	 * @param user
 	 */
-	private TwitterUser recycle(TwitterUser user){
-		TwitterUser recycled = userRepository.findFirst(user);
+	private TwitterAccount recycle(TwitterAccount user){
+		TwitterAccount recycled = userRepository.findFirst(user);
 		if(recycled != null){
 			recycled.recycle(user);
 		}

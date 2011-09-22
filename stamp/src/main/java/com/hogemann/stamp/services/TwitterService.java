@@ -5,7 +5,7 @@ import java.util.Map;
 
 import com.googlecode.ehcache.annotations.Cacheable;
 import com.hogemann.stamp.model.Stamp;
-import com.hogemann.stamp.model.TwitterUser;
+import com.hogemann.stamp.model.TwitterAccount;
 
 public interface TwitterService {
 	
@@ -13,20 +13,20 @@ public interface TwitterService {
 	public static final String TWITTER_USER = "user";
 	
 	/**
-	 * Creates a {@link TwitterUser} configured with an authentication request
+	 * Creates a {@link TwitterAccount} configured with an authentication request
 	 * to be made.
 	 * 
 	 * @return
 	 */
-	public TwitterUser startAuthentication();
+	public TwitterAccount startAuthentication();
 	
-	public TwitterUser loadUser(long id);
+	public TwitterAccount loadUser(long id);
 	
-	public long save(TwitterUser user);
+	public long save(TwitterAccount user);
 	
-	public TwitterUser getFromSession(Map<String,Object> session);
+	public TwitterAccount getFromSession(Map<String,Object> session);
 	
-	public Stamp getStampForUserId(long userId, TwitterUser user);
+	public Stamp getStampForUserId(long userId, TwitterAccount user);
 	
 	@Cacheable(cacheName="twitterNickSearch")
 	public List<String> searchNicks(String search);

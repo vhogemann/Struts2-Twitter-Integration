@@ -14,7 +14,7 @@ import twitter4j.auth.AccessToken;
 import twitter4j.auth.RequestToken;
 
 @Entity
-public class TwitterUser extends User {
+public class TwitterAccount extends Account {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -36,21 +36,21 @@ public class TwitterUser extends User {
 	@Transient
 	private RequestToken requestToken;
 	
-	public TwitterUser() {}
+	public TwitterAccount() {}
 	
-	public TwitterUser(twitter4j.User user){
+	public TwitterAccount(twitter4j.User user){
 		twitterId = user.getId();
-		super.setNick(user.getScreenName());
-		super.setName(user.getName());
-		super.setImage(user.getProfileImageURL().toString());
+		getUser().setNick(user.getScreenName());
+		getUser().setName(user.getName());
+		getUser().setImage(user.getProfileImageURL().toString());
 	}
 
-	public TwitterUser(Twitter twitter, RequestToken requestToken){
+	public TwitterAccount(Twitter twitter, RequestToken requestToken){
 		this.twitter = twitter;
 		this.requestToken = requestToken;
 	}
 	
-	public void recycle(TwitterUser user){
+	public void recycle(TwitterAccount user){
 		twitter = user.getTwitter();
 		accessToken = user.getAccessToken();
 		secret = user.getSecret();
@@ -69,9 +69,9 @@ public class TwitterUser extends User {
 		
 		twitterId = twitter.getId();
 		
-		super.setNick(user.getScreenName());
-		super.setName(user.getName());
-		super.setImage(user.getProfileImageURL().toString());
+		getUser().setNick(user.getScreenName());
+		getUser().setName(user.getName());
+		getUser().setImage(user.getProfileImageURL().toString());
 	}
 	
 	public String getAuthenticationURL(){

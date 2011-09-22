@@ -4,21 +4,21 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.hogemann.stamp.model.TwitterUser;
-import com.hogemann.stamp.persistence.TwitterUserRepository;
+import com.hogemann.stamp.model.TwitterAccount;
+import com.hogemann.stamp.persistence.TwitterAccountRepository;
 
 @Repository
-public class UserHibernateRepository extends AbstractHibernateReposiory<TwitterUser> implements TwitterUserRepository {
+public class UserHibernateRepository extends AbstractHibernateReposiory<TwitterAccount> implements TwitterAccountRepository {
 
 	@Override
-	public Class<TwitterUser> getEntityClass() {
-		return TwitterUser.class;
+	public Class<TwitterAccount> getEntityClass() {
+		return TwitterAccount.class;
 	}
 
 	@SuppressWarnings("unchecked")
-	public TwitterUser findFirst(TwitterUser user) {
+	public TwitterAccount findFirst(TwitterAccount user) {
 		
-		List<TwitterUser> users = super.find(user);
+		List<TwitterAccount> users = super.find(user);
 		
 		if(users != null && !users.isEmpty())
 			return users.iterator().next();
