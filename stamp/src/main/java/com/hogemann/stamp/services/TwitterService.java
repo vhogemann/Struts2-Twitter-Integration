@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.googlecode.ehcache.annotations.Cacheable;
-import com.hogemann.stamp.model.Stamp;
 import com.hogemann.stamp.model.TwitterAccount;
 
 public interface TwitterService {
@@ -25,8 +24,6 @@ public interface TwitterService {
 	public long save(TwitterAccount user);
 	
 	public TwitterAccount getFromSession(Map<String,Object> session);
-	
-	public Stamp getStampForUserId(long userId, TwitterAccount user);
 	
 	@Cacheable(cacheName="twitterNickSearch")
 	public List<String> searchNicks(String search);

@@ -15,9 +15,6 @@ public abstract class AbstractHibernateRepositoryTest<E extends AbstractEntity> 
 	
 	protected abstract E getEntity();
 	
-	protected abstract void modifyEntity(E entity);
-	protected abstract boolean confirmModification(E entity);
-	
 	@Test
 	public void testSave(){
 		E expected = getEntity();
@@ -25,11 +22,9 @@ public abstract class AbstractHibernateRepositoryTest<E extends AbstractEntity> 
 		E actual = getRepository().get(id);
 		Assert.assertEquals(expected, actual);
 		
-		modifyEntity(expected);
 		getRepository().update(expected);
 		actual = getRepository().get(id);
 		Assert.assertEquals(expected, actual);
-		Assert.assertTrue(confirmModification(actual));
 	}
 	
 	@Test

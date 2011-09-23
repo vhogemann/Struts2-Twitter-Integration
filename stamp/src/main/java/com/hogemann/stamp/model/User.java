@@ -10,8 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -37,13 +35,6 @@ public class User extends AbstractEntity {
 	@OneToMany(fetch=FetchType.EAGER)
 	private List<Account> accounts;
 	
-	@OneToMany(fetch=FetchType.LAZY)
-	private List<Album> albuns;
-	
-	@ManyToMany(fetch=FetchType.LAZY)
-	@JoinTable(name="album_instance")
-	private List<Album> instances;
-
 	public long getId() {
 		return id;
 	}
@@ -74,22 +65,6 @@ public class User extends AbstractEntity {
 
 	public void setImage(String image) {
 		this.image = image;
-	}
-
-	public List<Album> getAlbuns() {
-		return albuns;
-	}
-
-	public void setAlbuns(List<Album> albuns) {
-		this.albuns = albuns;
-	}
-
-	public List<Album> getInstances() {
-		return instances;
-	}
-
-	public void setInstances(List<Album> instances) {
-		this.instances = instances;
 	}
 
 	public List<Account> getAccounts() {

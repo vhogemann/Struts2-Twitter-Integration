@@ -12,7 +12,6 @@ import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.auth.RequestToken;
 
-import com.hogemann.stamp.model.Stamp;
 import com.hogemann.stamp.model.TwitterAccount;
 import com.hogemann.stamp.persistence.TwitterAccountRepository;
 import com.hogemann.stamp.util.TwitterFactory;
@@ -42,11 +41,6 @@ public class TwitterServiceImpl implements TwitterService {
 			log.error(e);
 		}
 		
-		return null;
-	}
-
-	public Stamp getStampForUserId(long userId, TwitterAccount user) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

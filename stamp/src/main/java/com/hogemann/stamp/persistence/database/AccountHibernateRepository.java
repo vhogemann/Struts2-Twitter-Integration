@@ -8,20 +8,19 @@ import com.hogemann.stamp.model.TwitterAccount;
 import com.hogemann.stamp.persistence.TwitterAccountRepository;
 
 @Repository
-public class UserHibernateRepository extends AbstractHibernateReposiory<TwitterAccount> implements TwitterAccountRepository {
+public class AccountHibernateRepository extends AbstractHibernateReposiory<TwitterAccount> implements TwitterAccountRepository {
 
 	@Override
 	public Class<TwitterAccount> getEntityClass() {
 		return TwitterAccount.class;
 	}
 
-	@SuppressWarnings("unchecked")
-	public TwitterAccount findFirst(TwitterAccount user) {
+	public TwitterAccount findFirst(TwitterAccount account) {
 		
-		List<TwitterAccount> users = super.find(user);
+		List<TwitterAccount> accounts = super.find(account);
 		
-		if(users != null && !users.isEmpty())
-			return users.iterator().next();
+		if(accounts != null && !accounts.isEmpty())
+			return accounts.iterator().next();
 		
 		return null;
 	}

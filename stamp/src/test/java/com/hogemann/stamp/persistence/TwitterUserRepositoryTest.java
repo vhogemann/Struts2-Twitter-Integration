@@ -11,7 +11,6 @@ import com.hogemann.stamp.model.TwitterAccount;
 @ContextConfiguration({"classpath:test-applicationContext.xml","classpath:dataContext.xml"})
 public class TwitterUserRepositoryTest extends AbstractHibernateRepositoryTest<TwitterAccount> {
 
-	private static final String ANOTHER_NAME = "another name";
 	@Autowired
 	private TwitterAccountRepository repository;
 	
@@ -27,16 +26,6 @@ public class TwitterUserRepositoryTest extends AbstractHibernateRepositoryTest<T
 		user.getUser().setNick("nickname");
 		user.getUser().setImage("http://host.com/image.png");
 		return user;
-	}
-
-	@Override
-	protected void modifyEntity(TwitterAccount entity) {
-		//TODO entity.set(ANOTHER_NAME);
-	}
-
-	@Override
-	protected boolean confirmModification(TwitterAccount entity) {
-		return false;//TODO return ANOTHER_NAME.equals(entity.getName());
 	}
 
 }
