@@ -23,9 +23,9 @@ public class TwitterOauthRequestAction implements SessionAware {
 
 	public String execute() {
 
-		TwitterAccount user = service.startAuthentication();
-		redirect = user.getAuthenticationURL();
-		session.put(TwitterService.TWITTER_USER, user);
+		TwitterAccount account = service.startAuthentication();
+		redirect = account.getAuthenticationURL();
+		session.put(TwitterService.TWITTER_USER, account);
 
 		return "success";
 	}

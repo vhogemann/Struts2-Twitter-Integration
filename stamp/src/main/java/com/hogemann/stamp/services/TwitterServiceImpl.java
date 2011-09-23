@@ -35,8 +35,8 @@ public class TwitterServiceImpl implements TwitterService {
 		try {
 			Twitter twitter = factory.getTwitter();
 			RequestToken requestToken = twitter.getOAuthRequestToken(twitterCallbackUrl);
-			TwitterAccount user = new TwitterAccount(twitter, requestToken);
-			return user;
+			TwitterAccount account = new TwitterAccount(twitter, requestToken);
+			return account;
 		} catch (TwitterException e) {
 			log.error(e);
 		}
