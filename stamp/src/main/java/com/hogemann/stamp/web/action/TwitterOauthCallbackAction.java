@@ -29,7 +29,7 @@ public class TwitterOauthCallbackAction implements ServletResponseAware {
 	private TwitterService service;
 	
 	@Autowired
-	private TwitterAccountRepository userRepository;
+	private TwitterAccountRepository accountRepository;
 
 	private HttpServletResponse response;
 	
@@ -64,16 +64,16 @@ public class TwitterOauthCallbackAction implements ServletResponseAware {
 	}
 	
 	/**
-	 * Tenta encontrar um usuário na persistencia
-	 * que já tenha sido utilizado, e associa o ID dele
+	 * Tenta encontrar uma conta de usuário na persistencia
+	 * que já tenha sido utilizada, e associa o ID dela
 	 * ao usuário com as informações de autenticação
 	 * 
-	 * @param user
+	 * @param account
 	 */
-	private TwitterAccount recycle(TwitterAccount user){
-		TwitterAccount recycled = userRepository.findFirst(user);
+	private TwitterAccount recycle(TwitterAccount account){
+		TwitterAccount recycled = accountRepository.findFirst(account);
 		if(recycled != null){
-			recycled.recycle(user);
+			recycled.recycle(account);
 		}
 		return recycled;
 	}
