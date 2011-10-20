@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"       
+          "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="stamp" namespace="/" extends="struts-default">
+
+		<interceptors>
+			<interceptor name="twitter" class="twitterInterceptor"></interceptor>
+			<interceptor-stack name="twitter">
+				<interceptor-ref name="i18nStack" />
+				<interceptor-ref name="cookie" />
+				<interceptor-ref name="twitter" />
+			</interceptor-stack>
+		</interceptors>
+
+		<default-interceptor-ref name="twitter" />
+
+		<global-results>
+			<result name="home" type="freemarker">/WEB-INF/templates/home.ftl</result>
+			<result name="error" type="freemarker">/WEB-INF/templates/error.ftl</result>
+		</global-results>
+
+		<action name="home">
+			<result name="success" type="freemarker">/WEB-INF/templates/home.ftl</result>
+		</action>
+
+		<action name="twitterauth" class="twitterAuth">
+			<result type="redirect" name="success">
+				<param name="parse">true</param>
+				<param name="location">${redirect}</param>
+			</result>
+		</action>
+
+		<action name="twittercallback" class="twitterCallback">
+			<result type="freemarker" name="success">
+				<param name="location">/WEB-INF/templates/home.ftl</param>
+			</result>
+		</action>
+
+	</package>
+	
+</struts>
